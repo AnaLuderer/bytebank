@@ -84,53 +84,78 @@ namespace bytebank
             Console.WriteLine($"CPF = {cpfs[index]} | Titular = {titulares[index]} | Saldo = R${saldos[index]:F2}");
         }
 
-        static void ManipularConta(List<string> cpfs, List<string> titulares, List<double> saldos)
+        static void ManipularConta(List<string> cpfs, List<string> titulares, List<string> senhas, List<double> saldos)
         {
+
             Console.Write("Digite o cpf: ");
             string cpfParaApresentar = Console.ReadLine();
             int indexParaApresentar = cpfs.FindIndex(cpf => cpf == cpfParaApresentar);
 
-            if (indexParaApresentar == -1)
+            Console.Write("Digite a senha: ");
+            string senhaParaApresentar = Console.ReadLine();
+            int indexSenhaParaApresentar = senhas.FindIndex(senha => senha == senhaParaApresentar);
+
+            if (indexParaApresentar == -1 || indexSenhaParaApresentar == -1)
             {
                 Console.WriteLine("Não foi possível apresentar esta Conta");
-                Console.WriteLine("MOTIVO: Conta não encontrada.");
+                Console.WriteLine("MOTIVO: Conta não encontrada ou senha incorreta.");
+                Console.WriteLine("Para retornar ao menu digite 0");
+
             }
 
-            ApresentaConta(indexParaApresentar, cpfs, titulares, saldos);
-            Console.WriteLine("--------------------");
-            Console.WriteLine("7 - Depositar");
-            Console.WriteLine("8 - Sacar");
-            Console.WriteLine("9 - Tranferir");
+            else
+            {
+                Console.WriteLine("--------------------");
+                Console.Write("Para continuar aperte 1: ");
+            }
 
-            Console.Write("Digite a opção desejada: ");
             int opcao = int.Parse(Console.ReadLine());
 
-            if (opcao == 7)
+            if (opcao != 0)
             {
-                Console.WriteLine("Qual valor a ser Depositado?");
-                Console.Write($"R$: ");
-                double valor = double.Parse(Console.ReadLine());
 
+
+                    Console.WriteLine("--------------------");
+
+                    ApresentaConta(indexParaApresentar, cpfs, titulares, saldos);
+
+                    Console.WriteLine("--------------------");
+                    Console.WriteLine("7 - Depositar");
+                    Console.WriteLine("8 - Sacar");
+                    Console.WriteLine("9 - Tranferir");
+                    Console.WriteLine("0 - Retornar");
+                    Console.Write("Digite nova opção desejada: ");
+                    int novaopcao = int.Parse(Console.ReadLine());
+               
+
+
+
+
+                    if (novaopcao == 7)
+                    {
+                        Console.WriteLine("Qual valor a ser Depositado?");
+                        Console.Write($"R$: ");
+                        double valor = double.Parse(Console.ReadLine());
+
+                    }
+                    if (novaopcao == 8)
+                    {
+                        Console.WriteLine("Qual valor a ser Sacado?");
+                        Console.Write($"R$: ");
+                        double valor = double.Parse(Console.ReadLine());
+
+                    }
+                    if (novaopcao == 9)
+                    {
+                        Console.WriteLine("Qual valor a ser Transferido?");
+                        Console.Write($"R$: ");
+                        double valor = double.Parse(Console.ReadLine());
+
+                        Console.WriteLine("-----------------");
+                    }
+
+                
             }
-            if (opcao == 8)
-            {
-                Console.WriteLine("Qual valor a ser Sacado?");
-                Console.Write($"R$: ");
-                double valor = double.Parse(Console.ReadLine());
-
-            }
-            if (opcao == 9)
-            {
-                Console.WriteLine("Qual valor a ser Transferido?");
-                Console.Write($"R$: ");
-                double valor = double.Parse(Console.ReadLine());
-
-                Console.WriteLine("-----------------");
-
-
-            }
-
-
         }
 
 
@@ -174,7 +199,7 @@ namespace bytebank
                         ApresentarValorAcumulado(saldos);
                         break;
                     case 6:
-                        ManipularConta(cpfs, titulares, saldos);
+                        ManipularConta(cpfs, titulares, senhas, saldos);
                         break;
 
                         
